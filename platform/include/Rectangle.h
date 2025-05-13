@@ -10,6 +10,10 @@ class Rectangle
     {
     }
 
+    virtual void onMouseEnter() {};
+    virtual void onMouseExit() {};
+    virtual void onLeftClick() {};
+
     void render(SDL_Surface* windowSurface) const
     {
         auto [r, g, b, a]{isPointerHovering ? _hoverColour : _colour};
@@ -20,17 +24,28 @@ class Rectangle
     {
         if (e.type == SDL_MOUSEMOTION)
         {
+            bool wasPointerHovering{isPointerHovering};
             isPointerHovering = isWithinRect(e.motion.x, e.motion.y);
+            if (!wasPointerHovering && isPointerHovering)
+            {
+                onMouseEnter();
+            }
+            else if (wasPointerHovering && !isPointerHovering)
+            {
+                onMouseExit();
+            }
         }
         else if (e.type == SDL_WINDOWEVENT && e.window.event == SDL_WINDOWEVENT_LEAVE)
         {
+            if (isPointerHovering)
+                onMouseExit();
             isPointerHovering = false;
         }
         else if (e.type == SDL_MOUSEBUTTONDOWN)
         {
             if (isPointerHovering && e.button.button == SDL_BUTTON_LEFT)
             {
-                std::cout << "Rectangle left clicked\n";
+                onLeftClick();
             }
         }
     }
@@ -54,6 +69,8 @@ class Rectangle
     {
         return _hoverColour;
     }
+
+    virtual ~Rectangle() {};
 
   private:
     SDL_Rect _rect{};

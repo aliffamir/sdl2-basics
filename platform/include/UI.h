@@ -1,7 +1,8 @@
 #ifndef UI_H
 #define UI_H
 // #include "Rectangle.h"
-#include "RedRectangle.h"
+#include "Button.h"
+#include "Rectangle.h"
 #include <SDL2/SDL.h>
 #include <memory>
 
@@ -29,6 +30,7 @@ class UI
     {
         _a.render(windowSurface);
         _b.render(windowSurface);
+        _c.render(windowSurface);
         // for (const auto& rectangle : _rectangles)
         // {
         //     rectangle.render(windowSurface);
@@ -39,16 +41,24 @@ class UI
     {
         _a.handleEvent(e);
         _b.handleEvent(e);
+        _c.handleEvent(e);
         // for (auto& rectangle : _rectangles)
         // {
         //     rectangle.handleEvent(e);
         // }
     }
 
+    void setRectangleColours(const SDL_Color& colour)
+    {
+        _a.setColour(colour);
+        _b.setColour(colour);
+    }
+
   private:
     // std::vector<std::unique_ptr<Rectangle>> _rectangles{};
     Rectangle _a{SDL_Rect{50, 50, 50, 50}};
     Rectangle _b{SDL_Rect{150, 50, 50, 50}};
+    Button _c{*this, SDL_Rect{250, 50, 50, 50}};
 };
 
 #endif
