@@ -48,6 +48,61 @@ class Rectangle
                 onLeftClick();
             }
         }
+        else if (e.type == SDL_KEYDOWN)
+        {
+            switch (e.key.keysym.sym)
+            {
+            case SDLK_RIGHT:
+                _xVel = 1;
+                break;
+            case SDLK_LEFT:
+                std::cout << "moving left\n";
+                _xVel = -1;
+                break;
+            case SDLK_UP:
+                std::cout << "moving up\n";
+                _yVel = -1;
+                break;
+            case SDLK_DOWN:
+                std::cout << "moving down\n";
+                _yVel = 1;
+                break;
+            }
+        }
+        else if (e.type == SDL_KEYUP)
+        {
+            switch (e.key.keysym.sym)
+            {
+            case SDLK_RIGHT:
+                if (_xVel > 0)
+                {
+                    _xVel = 0;
+                }
+                break;
+            case SDLK_LEFT:
+                if (_xVel < 0)
+                {
+                    _xVel = 0;
+                }
+                break;
+            case SDLK_UP:
+                if (_yVel < 0)
+                {
+                    _yVel = 0;
+                }
+                break;
+            case SDLK_DOWN:
+                if (_yVel > 0)
+                {
+
+                    _yVel = 0;
+                }
+                break;
+            }
+        }
+
+        _rect.x += _xVel;
+        _rect.y += _yVel;
     }
 
     void setColour(const SDL_Color& colour)
@@ -74,6 +129,8 @@ class Rectangle
 
   private:
     SDL_Rect _rect{};
+    int _xVel{0};
+    int _yVel{0};
     // Default to green in RGBA format
     SDL_Color _colour{0, 255, 0, 255};
     SDL_Color _hoverColour{0, 0, 255, 255};

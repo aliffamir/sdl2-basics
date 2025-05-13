@@ -12,12 +12,12 @@ int main(int argc, char* argv[])
     }
 
     Window window;
-    UI ui;
+    // UI ui;
 
     // SDL_Rect is a simple struct of 4 members
     // x and y members represent the position of the top left corner of the rectangle
     // w and h members represent the width and height of the rectange respectively
-    // Rectangle rectangle{SDL_Rect{100, 100, 50, 50}};
+    Rectangle rectangle{SDL_Rect{100, 100, 50, 50}};
 
     bool running = true;
     SDL_Event e;
@@ -26,8 +26,8 @@ int main(int argc, char* argv[])
     {
         while (SDL_PollEvent(&e))
         {
-            // rectangle.handleEvent(e);
-            ui.handleEvent(e);
+            rectangle.handleEvent(e);
+            // ui.handleEvent(e);
             if (e.type == SDL_QUIT)
             {
                 running = false;
@@ -35,8 +35,8 @@ int main(int argc, char* argv[])
         }
 
         window.render();
-        // rectangle.render(window.getSurface());
-        ui.render(window.getSurface());
+        rectangle.render(window.getSurface());
+        // ui.render(window.getSurface());
         window.update();
     }
 
