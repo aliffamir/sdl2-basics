@@ -10,7 +10,7 @@ class Rectangle
     {
     }
 
-    void Render(SDL_Surface* windowSurface) const
+    void render(SDL_Surface* windowSurface) const
     {
         auto [r, g, b, a]{isPointerHovering ? _hoverColour : _colour};
         SDL_FillRect(windowSurface, &_rect, SDL_MapRGB(windowSurface->format, r, g, b));
